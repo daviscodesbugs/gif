@@ -4,16 +4,27 @@ httpGet("https://wt-8a5e2a05e58a7a05cf5d417a51918549-0.run.webtask.io/gifmag", f
 	maglink = res.magnet_link;
 });
 
+var appData = {
+	progress: undefined,
+	numFiles: undefined
+}
+
 var app = new Vue({
 	el: '#app',
+	data: appData,
 	methods: {
 		loadTorrent: function () {
 			console.log("Loading Torrent...");
+			appData.progress = "0.00%"
+
 			client.add(maglink, function (torrent) {
 				console.log("Metadata received.");
+				appData.numFiles = torrent.files.length;
 
 				var interval = setInterval(function () {
 					console.log('Progress: ' + (torrent.progress * 100).toFixed(2) + '%');
+					appData.progress = (torrent.progress * 100).toFixed(2) + '%';
+
 					if (torrent.progress == 1) {
 						console.log("Loaded");
 						clearInterval(interval);
