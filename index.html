@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Webtorrent</title>
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<div id="app">
+		<center>
+			<input type="submit" class="btn btn-default" value="Load Files" v-on:click="loadTorrent">
+			<files></files>
+		</center>
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.98.14/webtorrent.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+	<script src="js/index.js"></script>
+</body>
+
+</html>
