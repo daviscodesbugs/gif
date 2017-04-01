@@ -6,7 +6,7 @@ var app = new Vue({
 	methods: {
 		loadTorrent: function () {
 			console.log("Loading Torrent", maglink);
-			console.log("Clinet", client);
+			console.log("Client", client);
 			client.add(maglink, function (torrent) {
 				console.log("Metadata received.");
 
