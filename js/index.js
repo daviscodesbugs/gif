@@ -1,12 +1,14 @@
 var client = new WebTorrent();
-var maglink = httpGet("https://wt-8a5e2a05e58a7a05cf5d417a51918549-0.run.webtask.io/gifmag").magnet_link;
+var maglink;
+httpGet("https://wt-8a5e2a05e58a7a05cf5d417a51918549-0.run.webtask.io/gifmag", function (res) {
+	maglink = res.magnet_link;
+});
 
 var app = new Vue({
 	el: '#app',
 	methods: {
 		loadTorrent: function () {
-			console.log("Loading Torrent", maglink);
-			console.log("Client", client);
+			console.log("Loading Torrent...");
 			client.add(maglink, function (torrent) {
 				console.log("Metadata received.");
 
@@ -18,19 +20,23 @@ var app = new Vue({
 					}
 				}, 3000);
 
-				console.log(torrent.files.length + " files in torrent");
+				var status = torrent.files.length + " files in torrent:"
 				torrent.files.forEach(function (file) {
-					console.log("File", file.name);
+					status += "\n- " + file.name;
 					file.appendTo('files');
 				});
+				console.log(status);
 			});
 		}
 	}
 });
 
-function httpGet(url) {
+function httpGet(url, cb) {
 	var xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", url, false); // false for synchronous request
+	xmlHttp.onreadystatechange = function () {
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+			cb(JSON.parse(xmlHttp.responseText));
+	}
+	xmlHttp.open("GET", url, true); // true for asynchronous 
 	xmlHttp.send(null);
-	return JSON.parse(xmlHttp.responseText);
 }

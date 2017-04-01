@@ -10,12 +10,15 @@
 
 <body>
 	<div id="app">
+		<div class="center-box">
+			<input type="submit" class="btn btn-default" value="Load Files" style="margin-top: 10px" v-on:click="loadTorrent">
+		</div>
+		<br>
 		<center>
-			<input type="submit" class="btn btn-default" value="Load Files" v-on:click="loadTorrent">
-			<br>
 			<files></files>
 		</center>
 	</div>
+
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/webtorrent/0.98.14/webtorrent.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
 	<script src="js/index.js"></script>
